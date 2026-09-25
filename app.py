@@ -212,7 +212,12 @@ def main():
     api_key = None
 
     if model_name == "Google AI":
-        api_key = st.sidebar.text_input("Enter your Google API key", type="password")
+        configured_api_key = st.secrets.get("GOOGLE_API_KEY", os.getenv("GOOGLE_API_KEY", ""))
+        api_key = st.sidebar.text_input(
+            "Enter your Google API key",
+            value=configured_api_key,
+            type="password",
+        )
         st.sidebar.markdown("Click [here](https://ai.google.dev/) to get an API key.")
         
         if not api_key:
